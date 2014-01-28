@@ -3,6 +3,7 @@ package schoolmngmt;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Dialogs;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
@@ -79,5 +80,48 @@ public class ClassOverviewController {
 		this.courseLabel.setText("");
 		this.teachersList.getItems().clear();
 		this.studentsList.getItems().clear();
+	}
+	
+	@FXML
+	private void handleDeleteClass() {
+		int selectedIndex = classTable.getSelectionModel().getSelectedIndex();
+		if (selectedIndex >= 0) {
+			classTable.getItems().remove(selectedIndex);
+		} else {
+			Dialogs.showWarningDialog(mainApp.getPrimaryStage(), "Please select a class in the table.", "No class selected", "No selection");
+		}
+		
+	}
+	
+	@FXML
+	private void handleNewClass() {
+		SchoolClass tempClass = new SchoolClass();
+		boolean okClicked = mainApp.showClassEditDialog(tempClass);
+		if (okClicked) {
+			mainApp.getClassData().add(tempClass);
+		}
+	}
+	
+	@FXML
+	private void handleEditClass() {
+		SchoolClass selectedClass = classTable.getSelectionModel().getSelectedItem();
+		if (selectedClass != null) {
+			boolean okClicked = mainApp.showClassEditDialog(selectedClass);
+			if (okClicked) {
+				refreshClassTable();
+				showClassDetails(selectedClass);
+			} else {
+				Dialogs.showWarningDialog(mainApp.getPrimaryStage(), "Please select a person in table.",
+						"No Person selected", "No Selection");
+			}
+		}
+	}
+
+	private void refreshClassTable() {
+		int selectedIndex = classTable.getSelectionModel().getSelectedIndex();
+		classTable.setItems(null);
+		classTable.layout();
+		classTable.setItems(mainApp.getClassData());
+		classTable.getSelectionModel().select(selectedIndex);
 	}
 }

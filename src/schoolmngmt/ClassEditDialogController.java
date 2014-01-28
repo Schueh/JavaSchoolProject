@@ -26,7 +26,7 @@ public class ClassEditDialogController {
 		this.dialogStage = dialogStage;
 	}
 	
-	public void setPerson(SchoolClass schoolClass) {
+	public void setClass(SchoolClass schoolClass) {
 		this.schoolClass = schoolClass;
 		
 		nameField.setText(schoolClass.getName());

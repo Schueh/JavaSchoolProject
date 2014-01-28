@@ -15,7 +15,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Dialogs;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import schoolmngmt.ClassEditDialogController;
 import schoolmngmt.model.SchoolClass;
 import schoolmngmt.util.FileUtil;
 import schoolmngmt.MainApp;
@@ -78,6 +80,30 @@ public class MainApp extends Application {
 			// Class overview couldn't be loaded.
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean showClassEditDialog(SchoolClass schoolClass) {
+		try {
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/ClassEditDialog.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Class");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			
+			ClassEditDialogController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setClass(schoolClass);
+			
+			dialogStage.showAndWait();
+			
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}		
 	}
 
 	private void loadClassData() {
