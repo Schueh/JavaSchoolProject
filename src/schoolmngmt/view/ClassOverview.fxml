@@ -28,7 +28,7 @@
                 <Label styleClass="label-bright" text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                 <Label fx:id="nameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <Label styleClass="label-bright" text="Course" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <Label fx:id="lastNameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label fx:id="courseLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label styleClass="label-bright" text="Teachers" GridPane.columnIndex="0" GridPane.rowIndex="2" />              
                 <ListView fx:id="teachersList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Label styleClass="label-bright" text="Students" GridPane.columnIndex="0" GridPane.rowIndex="3" />
