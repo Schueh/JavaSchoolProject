@@ -34,6 +34,18 @@ public class MainApp extends Application {
 		return classData;
 	}
 	
+	public MainApp() {
+		SchoolClass testClass1 = new SchoolClass("PABIT", "Bsc BIT");
+		testClass1.getTeachers().add("Hans Muster");
+		testClass1.getTeachers().add("Maria Bernasconi");
+		testClass1.getStudents().add("Schueler 1");
+		testClass1.getStudents().add("Schueler 2");
+		testClass1.getStudents().add("Schueler 3");
+		testClass1.getStudents().add("Schueler 4");
+		testClass1.getStudents().add("Schueler 5");
+		classData.add(testClass1);
+	}
+	
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;

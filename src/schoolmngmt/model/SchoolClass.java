@@ -13,6 +13,11 @@ public class SchoolClass {
 		
 	}
 	
+	public SchoolClass(String name, String course) {
+		this.name = name;
+		this.course = course;
+	}
+	
 	public String getName() {
 		return this.name;
 	}

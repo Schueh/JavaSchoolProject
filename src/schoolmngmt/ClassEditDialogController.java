@@ -2,6 +2,7 @@ package schoolmngmt;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Dialogs;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import schoolmngmt.model.SchoolClass;
@@ -11,7 +12,10 @@ public class ClassEditDialogController {
 	private TextField nameField;
 	@FXML
 	private TextField courseField;
-	// TODO: edit fields for teachers and students
+	@FXML
+	private ListView<String> teachersList;
+	@FXML
+	private ListView<String> studentsList;
 	
 	private Stage dialogStage;
 	private SchoolClass schoolClass;
@@ -31,7 +35,8 @@ public class ClassEditDialogController {
 		
 		nameField.setText(schoolClass.getName());
 		courseField.setText(schoolClass.getCourse());
-		// TODO: set students and teachers
+		teachersList.getItems().addAll(schoolClass.getTeachers());
+		studentsList.getItems().addAll(schoolClass.getStudents());
 	}
 	
 	public boolean isOkClicked() {
