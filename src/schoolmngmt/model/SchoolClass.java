@@ -17,8 +17,16 @@ public class SchoolClass {
 		return this.name;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
 	public String getCourse() {
 		return this.course;
+	}
+	
+	public void setCourse(String course) {
+		this.course = course;
 	}
 	
 	public List<String> getTeachers() {
