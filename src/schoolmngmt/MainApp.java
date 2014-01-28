@@ -66,7 +66,7 @@ public class MainApp extends Application {
 	private void showClassOverview() {
 		try {
 			// Load the FXML file and set into the center of the main layout
-			FXMLLoader loader = getLoaderForView("view/PersonOverview.fxml");
+			FXMLLoader loader = getLoaderForView("view/ClassOverview.fxml");
 			AnchorPane overviewPage = (AnchorPane) loader.load();
 			rootLayout.setCenter(overviewPage);
 			
