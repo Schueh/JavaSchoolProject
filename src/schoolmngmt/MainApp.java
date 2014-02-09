@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import schoolmngmt.ClassEditDialogController;
 import schoolmngmt.model.SchoolClass;
+import schoolmngmt.model.User;
 import schoolmngmt.util.FileUtil;
 import schoolmngmt.MainApp;
 import schoolmngmt.ClassOverviewController;
@@ -27,6 +28,12 @@ public class MainApp extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	
+	private User currentUser;
+	
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+	}
 	
 	private ObservableList<SchoolClass> classData = FXCollections.observableArrayList();
 	

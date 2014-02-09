@@ -3,6 +3,10 @@ package schoolmngmt;
 import java.util.HashMap;
 import java.util.Map;
 
+import schoolmngmt.model.Secretary;
+import schoolmngmt.model.Student;
+import schoolmngmt.model.Teacher;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Dialogs;
 import javafx.scene.control.PasswordField;
@@ -39,21 +43,34 @@ public class LoginController {
 	
 	@FXML
 	private void handleLogin() {
-		Boolean loginSuccessful = false;
-		
-		if (usernameField.getText().length() > 0 && passwordField.getText().length() > 0) {
-			if (users.containsKey(usernameField.getText())) {
-				if (users.get(usernameField.getText()).equals(passwordField.getText())) {
-					loginSuccessful = true;
-				}
-			}
-		}
-		
+		Boolean loginSuccessful = TryLogin();
 		if (loginSuccessful) {
-			// TODO: set current user on main app
+			setCurrentUser();
 			mainApp.showClassOverview();
 		} else {
 			Dialogs.showErrorDialog(mainApp.getPrimaryStage(), "Login failed.", "Username and/or password are not correct.", "Login failed");
+		}
+	}
+	
+	private Boolean TryLogin() {
+		if (usernameField.getText().length() > 0 && passwordField.getText().length() > 0) {
+			if (users.containsKey(usernameField.getText())) {
+				if (users.get(usernameField.getText()).equals(passwordField.getText())) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private void setCurrentUser() {
+		String username = usernameField.getText();
+		switch (username) {
+			case ("Sandra Studer") : mainApp.setCurrentUser(new Secretary(username));
+			break;
+			case ("Michael Stoll") : mainApp.setCurrentUser(new Teacher(username));
+			break;
+			case ("Kevin Buhlmann") : mainApp.setCurrentUser(new Student(username));
 		}
 	}
 }
