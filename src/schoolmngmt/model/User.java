@@ -18,7 +18,7 @@ public abstract class User {
 		this.username = username;
 	}
 	
-	public Boolean HasRole(String role) {
+	public Boolean hasRole(String role) {
 		return roles.contains(role);
 	}
 }

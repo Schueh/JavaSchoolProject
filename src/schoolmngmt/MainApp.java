@@ -31,6 +31,10 @@ public class MainApp extends Application {
 	
 	private User currentUser;
 	
+	public User getCurrentUser() {
+		return currentUser;
+	}
+	
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
 	}
@@ -43,14 +47,18 @@ public class MainApp extends Application {
 	
 	public MainApp() {
 		SchoolClass testClass1 = new SchoolClass("PABIT", "Bsc BIT");
-		testClass1.getTeachers().add("Hans Muster");
-		testClass1.getTeachers().add("Maria Bernasconi");
+		testClass1.getTeachers().add("Michael Stoll");
 		testClass1.getStudents().add("Schueler 1");
 		testClass1.getStudents().add("Schueler 2");
 		testClass1.getStudents().add("Schueler 3");
 		testClass1.getStudents().add("Schueler 4");
 		testClass1.getStudents().add("Schueler 5");
 		classData.add(testClass1);
+		
+		SchoolClass testClass2 = new SchoolClass("BIT", "Bsc BIT");
+		testClass2.getTeachers().add("Max Mustermann");
+		testClass2.getStudents().add("Kevin Buhlmann");
+		classData.add(testClass2);
 	}
 	
 	@Override

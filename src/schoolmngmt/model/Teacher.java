@@ -4,6 +4,6 @@ public class Teacher extends User {
 
 	public Teacher(String username) {
 		super(username);
-		AddRole("view");
+		AddRole("viewTeacher");
 	}
 }

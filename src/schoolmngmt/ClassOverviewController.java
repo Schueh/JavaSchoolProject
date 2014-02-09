@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import schoolmngmt.model.SchoolClass;
+import schoolmngmt.model.User;
 
 public class ClassOverviewController {
 	@FXML
@@ -66,14 +67,34 @@ public class ClassOverviewController {
 	}
 	
 	private void showClassDetails(SchoolClass schoolClass) {
-		if (schoolClass == null) {
-			clearLabels();
+		if (canUserViewClassDetails(schoolClass)) {
+			if (schoolClass == null) {
+				clearLabels();
+			} else {
+				this.nameLabel.setText(schoolClass.getName());
+				this.courseLabel.setText(schoolClass.getCourse());
+				this.teachersList.getItems().addAll(schoolClass.getTeachers());
+				this.studentsList.getItems().addAll(schoolClass.getStudents());	
+			}
 		} else {
-			this.nameLabel.setText(schoolClass.getName());
-			this.courseLabel.setText(schoolClass.getCourse());
-			this.teachersList.getItems().addAll(schoolClass.getTeachers());
-			this.studentsList.getItems().addAll(schoolClass.getStudents());	
+			Dialogs.showErrorDialog(mainApp.getPrimaryStage(), "You don't have enough privileges to view this class details.", "Access denied", "Access denied");
+			clearLabels();
 		}
+	}
+	
+	private Boolean canUserViewClassDetails(SchoolClass schoolClass) {
+		Boolean canViewClassDetails = false;
+		
+		User currentUser = mainApp.getCurrentUser();
+		if (currentUser.hasRole("viewAll")) {
+			canViewClassDetails = true;
+		} else if (currentUser.hasRole("viewStudent") && schoolClass.getStudents().contains(currentUser.getUsername())) {
+			canViewClassDetails = true;
+		} else if (currentUser.hasRole("viewTeacher") && schoolClass.getTeachers().contains(currentUser.getUsername())) {
+			canViewClassDetails = true;
+		}
+		
+		return canViewClassDetails;
 	}
 	
 	private void clearLabels() {
@@ -85,33 +106,44 @@ public class ClassOverviewController {
 	
 	@FXML
 	private void handleDeleteClass() {
-		int selectedIndex = classTable.getSelectionModel().getSelectedIndex();
-		if (selectedIndex >= 0) {
-			classTable.getItems().remove(selectedIndex);
+		if (mainApp.getCurrentUser().hasRole("delete")) {
+			int selectedIndex = classTable.getSelectionModel().getSelectedIndex();
+			if (selectedIndex >= 0) {
+				classTable.getItems().remove(selectedIndex);
+			} else {
+				Dialogs.showWarningDialog(mainApp.getPrimaryStage(), "Please select a class in the table.", "No class selected", "No selection");
+			}
 		} else {
-			Dialogs.showWarningDialog(mainApp.getPrimaryStage(), "Please select a class in the table.", "No class selected", "No selection");
+			Dialogs.showErrorDialog(mainApp.getPrimaryStage(), "You don't have enough privileges to delete a class.", "Access denied", "Access denied");
 		}
-		
 	}
 	
 	@FXML
 	private void handleNewClass() {
-		SchoolClass tempClass = new SchoolClass();
-		boolean okClicked = mainApp.showClassEditDialog(tempClass);
-		if (okClicked) {
-			mainApp.getClassData().add(tempClass);
+		if (mainApp.getCurrentUser().hasRole("create")) {
+			SchoolClass tempClass = new SchoolClass();
+			boolean okClicked = mainApp.showClassEditDialog(tempClass);
+			if (okClicked) {
+				mainApp.getClassData().add(tempClass);
+			}
+		} else {
+			Dialogs.showErrorDialog(mainApp.getPrimaryStage(), "You don't have enough privileges to create a new class.", "Access denied", "Access denied");
 		}
 	}
 	
 	@FXML
 	private void handleEditClass() {
-		SchoolClass selectedClass = classTable.getSelectionModel().getSelectedItem();
-		if (selectedClass != null) {
-			boolean okClicked = mainApp.showClassEditDialog(selectedClass);
-			if (okClicked) {
-				refreshClassTable();
-				showClassDetails(selectedClass);
+		if (mainApp.getCurrentUser().hasRole("edit")) {
+			SchoolClass selectedClass = classTable.getSelectionModel().getSelectedItem();
+			if (selectedClass != null) {
+				boolean okClicked = mainApp.showClassEditDialog(selectedClass);
+				if (okClicked) {
+					refreshClassTable();
+					showClassDetails(selectedClass);
+				}
 			}
+		} else {
+			Dialogs.showErrorDialog(mainApp.getPrimaryStage(), "You don't have enough privileges to edit a class.", "Access denied", "Access denied");
 		}
 	}
 
