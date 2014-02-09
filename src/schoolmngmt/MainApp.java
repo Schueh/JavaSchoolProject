@@ -187,11 +187,8 @@ public class MainApp extends Application {
 		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		if (file != null) {
 			prefs.put("filePath", file.getPath());
-			
-			primaryStage.setTitle("AddressApp - " + file.getName());
 		} else {
 			prefs.remove("filePath");
-			primaryStage.setTitle("AddressApp");
 		}
 	}
 	

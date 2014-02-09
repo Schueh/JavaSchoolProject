@@ -65,6 +65,9 @@ public class LoginController {
 	
 	private void setCurrentUser() {
 		String username = usernameField.getText();
+		
+		mainApp.getPrimaryStage().setTitle("SchoolManagementApp - " + username);
+		
 		switch (username) {
 			case ("Sandra Studer") : mainApp.setCurrentUser(new Secretary(username));
 			break;
