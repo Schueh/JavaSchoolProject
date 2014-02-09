@@ -112,9 +112,6 @@ public class ClassOverviewController {
 			if (okClicked) {
 				refreshClassTable();
 				showClassDetails(selectedClass);
-			} else {
-				Dialogs.showWarningDialog(mainApp.getPrimaryStage(), "Please select a person in table.",
-						"No Person selected", "No Selection");
 			}
 		}
 	}
