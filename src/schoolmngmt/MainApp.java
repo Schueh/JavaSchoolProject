@@ -20,12 +20,16 @@ import javafx.stage.Stage;
 import schoolmngmt.ClassEditDialogController;
 import schoolmngmt.model.SchoolClass;
 import schoolmngmt.model.User;
+import schoolmngmt.repository.IDataRepository;
+import schoolmngmt.repository.XmlDataRepository;
 import schoolmngmt.util.FileUtil;
 import schoolmngmt.MainApp;
 import schoolmngmt.ClassOverviewController;
 
 public class MainApp extends Application {
 
+	private IDataRepository dataRepository;
+	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	
@@ -46,6 +50,8 @@ public class MainApp extends Application {
 	}
 	
 	public MainApp() {
+		dataRepository = new XmlDataRepository(); // TODO: Inject with DI
+		
 		SchoolClass testClass1 = new SchoolClass("PABIT", "Bsc BIT");
 		testClass1.getTeachers().add("Michael Stoll");
 		testClass1.getStudents().add("Schueler 1");
@@ -189,15 +195,9 @@ public class MainApp extends Application {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void loadClassDataFromFile(File file) {
-		XStream xstream = new XStream();
-		xstream.alias("class", SchoolClass.class);
-		
 		try {
-			String xml = FileUtil.readFile(file);
-			
-			ArrayList<SchoolClass> personList = (ArrayList<SchoolClass>) xstream.fromXML(xml);
+			ArrayList<SchoolClass> personList = dataRepository.LoadData(file);
 			
 			classData.clear();
 			classData.addAll(personList);
@@ -211,14 +211,8 @@ public class MainApp extends Application {
 	}
 	
 	public void saveClassDataToFile(File file) {
-		XStream xstream = new XStream();
-		xstream.alias("class", SchoolClass.class);
-		
-		ArrayList<SchoolClass> personList = new ArrayList<SchoolClass>(classData);
-		
-		String xml = xstream.toXML(personList);
 		try {
-			FileUtil.saveFile(xml, file);
+			dataRepository.SaveData(file, new ArrayList<SchoolClass>(classData));
 			
 			setClassFilePath(file);
 		} catch (Exception e) {
