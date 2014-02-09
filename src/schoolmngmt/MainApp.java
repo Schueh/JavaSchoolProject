@@ -54,7 +54,8 @@ public class MainApp extends Application {
 		
 		initialize();
 		
-		showClassOverview();
+		showLogin();
+		// showClassOverview();
 		
 		loadClassData();
 	}
@@ -77,7 +78,21 @@ public class MainApp extends Application {
 		}
 	}
 	
-	private void showClassOverview() {
+	private void showLogin() {
+		try {
+			FXMLLoader loader = getLoaderForView("view/LoginView.fxml");
+			AnchorPane loginPage = (AnchorPane) loader.load();
+			rootLayout.setCenter(loginPage);
+			
+			LoginController loginController = loader.getController();
+			loginController.setMainApp(this);
+		} catch (IOException e) {
+			// Login view couldn't be loaded.
+			e.printStackTrace();
+		}
+	}
+	
+	public void showClassOverview() {
 		try {
 			// Load the FXML file and set into the center of the main layout
 			FXMLLoader loader = getLoaderForView("view/ClassOverview.fxml");
