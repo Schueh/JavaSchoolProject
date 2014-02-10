@@ -12,7 +12,7 @@ public class XmlDataRepository implements IDataRepository {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<SchoolClass> LoadData(File file) throws Exception {
+	public ArrayList<SchoolClass> loadData(File file) throws Exception {
 		ArrayList<SchoolClass> data = new ArrayList<SchoolClass>();
 
 		XStream xstream = new XStream();
@@ -24,7 +24,7 @@ public class XmlDataRepository implements IDataRepository {
 	}
 
 	@Override
-	public void SaveData(File file, ArrayList<SchoolClass> classData) throws Exception {
+	public void saveData(File file, ArrayList<SchoolClass> classData) throws Exception {
 		XStream xstream = new XStream();
 		xstream.alias("class", SchoolClass.class);
 		

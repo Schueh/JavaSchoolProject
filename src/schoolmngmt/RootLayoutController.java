@@ -8,6 +8,7 @@ import javafx.stage.FileChooser;
 import schoolmngmt.MainApp;
 
 public class RootLayoutController {
+	
 	private MainApp mainApp;
 	
 	public void setMainApp(MainApp mainApp) {
@@ -16,6 +17,7 @@ public class RootLayoutController {
 	
 	@FXML
 	private void handleNew() {
+		
 		mainApp.getClassData().clear();
 		mainApp.setClassFilePath(null);
 	}

@@ -3,9 +3,9 @@ package schoolmngmt;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.prefs.Preferences;
 
-import com.thoughtworks.xstream.XStream;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -21,14 +21,16 @@ import schoolmngmt.ClassEditDialogController;
 import schoolmngmt.model.SchoolClass;
 import schoolmngmt.model.User;
 import schoolmngmt.repository.IDataRepository;
-import schoolmngmt.repository.XmlDataRepository;
-import schoolmngmt.util.FileUtil;
+import schoolmngmt.repository.IUserPreferences;
 import schoolmngmt.MainApp;
 import schoolmngmt.ClassOverviewController;
 
 public class MainApp extends Application {
 
-	private IDataRepository dataRepository;
+	private final IDataRepository dataRepository;
+	private final IUserPreferences userPreferences;
+	
+	private final Injector injector = Guice.createInjector(new DependencyModule());
 	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
@@ -50,7 +52,9 @@ public class MainApp extends Application {
 	}
 	
 	public MainApp() {
-		dataRepository = new XmlDataRepository(); // TODO: Inject with DI
+
+		dataRepository = injector.getInstance(IDataRepository.class);
+		userPreferences = injector.getInstance(IUserPreferences.class);
 		
 		SchoolClass testClass1 = new SchoolClass("PABIT", "Bsc BIT");
 		testClass1.getTeachers().add("Michael Stoll");
@@ -76,8 +80,7 @@ public class MainApp extends Application {
 		initialize();
 		
 		showLogin();
-		// showClassOverview();
-		
+				
 		loadClassData();
 	}
 	
@@ -174,8 +177,7 @@ public class MainApp extends Application {
 	}
 	
 	public File getClassFilePath() {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
-		String filePath = prefs.get("filePath", null);
+		String filePath = userPreferences.getPreference(MainApp.class, "filePath");
 		if (filePath != null) {
 			return new File(filePath);
 		} else {
@@ -184,17 +186,16 @@ public class MainApp extends Application {
 	}
 	
 	public void setClassFilePath(File file) {
-		Preferences prefs = Preferences.userNodeForPackage(MainApp.class);
 		if (file != null) {
-			prefs.put("filePath", file.getPath());
+			userPreferences.savePreference(MainApp.class, "filePath", file.getPath());
 		} else {
-			prefs.remove("filePath");
+			userPreferences.removePreference(MainApp.class, "filePath");
 		}
 	}
 	
 	public void loadClassDataFromFile(File file) {
 		try {
-			ArrayList<SchoolClass> personList = dataRepository.LoadData(file);
+			ArrayList<SchoolClass> personList = dataRepository.loadData(file);
 			
 			classData.clear();
 			classData.addAll(personList);
@@ -209,7 +210,7 @@ public class MainApp extends Application {
 	
 	public void saveClassDataToFile(File file) {
 		try {
-			dataRepository.SaveData(file, new ArrayList<SchoolClass>(classData));
+			dataRepository.saveData(file, new ArrayList<SchoolClass>(classData));
 			
 			setClassFilePath(file);
 		} catch (Exception e) {
