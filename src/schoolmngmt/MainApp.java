@@ -89,13 +89,8 @@ public class MainApp extends Application {
 			FXMLLoader loader = getLoaderForView("view/RootLayout.fxml");
 			rootLayout = (BorderPane) loader.load();
 			Scene scene = new Scene(rootLayout);
-			primaryStage.setScene(scene);
-			
-			RootLayoutController controller = loader.getController();
-			controller.setMainApp(this);
-			
-			primaryStage.show();
-			
+			primaryStage.setScene(scene);		
+			primaryStage.show();			
 		} catch (IOException e) {
 			// Root layout couldn't be loaded.
 			e.printStackTrace();
@@ -123,10 +118,8 @@ public class MainApp extends Application {
 			AnchorPane overviewPage = (AnchorPane) loader.load();
 			rootLayout.setCenter(overviewPage);
 			
-			// Give the controller access to the main application
 			ClassOverviewController controller = loader.getController();
 			controller.setMainApp(this);
-			
 		} catch (IOException e) {
 			// Class overview couldn't be loaded.
 			e.printStackTrace();
@@ -165,7 +158,9 @@ public class MainApp extends Application {
 	}
 
 	private FXMLLoader getLoaderForView(String view) throws IOException {
-		return new FXMLLoader(MainApp.class.getResource(view));
+		FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(view));
+		loader.setControllerFactory(new GuiceControllerFactory(injector));
+		return loader;
 	}
 
 	public static void main(String[] args) {

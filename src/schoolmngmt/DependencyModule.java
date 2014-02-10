@@ -13,5 +13,6 @@ public class DependencyModule extends AbstractModule {
 	protected void configure() {
 		bind(IDataRepository.class).to(XmlDataRepository.class);
 		bind(IUserPreferences.class).to(UserPreferences.class);
+		bind(MainApp.class);
 	}
 }

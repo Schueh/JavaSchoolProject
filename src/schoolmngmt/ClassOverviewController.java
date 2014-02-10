@@ -31,7 +31,7 @@ public class ClassOverviewController {
 	private ListView<String> studentsList;
 	
 	// Reference to the main application.
-	private MainApp mainApp;
+	private MainApp mainApp; // TODO: DI does not work here.
 	
 	public ClassOverviewController() {
 		
