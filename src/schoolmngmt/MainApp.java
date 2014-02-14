@@ -58,11 +58,7 @@ public class MainApp extends Application {
 		
 		SchoolClass testClass1 = new SchoolClass("PABIT", "Bsc BIT");
 		testClass1.getTeachers().add("Michael Stoll");
-		testClass1.getStudents().add("Schueler 1");
-		testClass1.getStudents().add("Schueler 2");
-		testClass1.getStudents().add("Schueler 3");
-		testClass1.getStudents().add("Schueler 4");
-		testClass1.getStudents().add("Schueler 5");
+		testClass1.getStudents().add("Lisa Simpson");
 		classData.add(testClass1);
 		
 		SchoolClass testClass2 = new SchoolClass("BIT", "Bsc BIT");

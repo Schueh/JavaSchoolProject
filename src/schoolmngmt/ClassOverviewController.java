@@ -73,7 +73,9 @@ public class ClassOverviewController {
 			} else {
 				this.nameLabel.setText(schoolClass.getName());
 				this.courseLabel.setText(schoolClass.getCourse());
+				this.teachersList.getItems().clear();
 				this.teachersList.getItems().addAll(schoolClass.getTeachers());
+				this.studentsList.getItems().clear();
 				this.studentsList.getItems().addAll(schoolClass.getStudents());	
 			}
 		} else {
