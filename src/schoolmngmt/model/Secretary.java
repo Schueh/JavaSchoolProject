@@ -7,6 +7,6 @@ public class Secretary extends User {
 		AddRole("create");
 		AddRole("edit");
 		AddRole("delete");
-		AddRole("view");
+		AddRole("viewAll");
 	}
 }
