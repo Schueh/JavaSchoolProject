@@ -1,5 +1,7 @@
 package schoolmngmt;
 
+import java.io.File;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -9,9 +11,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 
 import schoolmngmt.model.SchoolClass;
 import schoolmngmt.model.User;
+import schoolmngmt.util.PDFUtil;
 
 public class ClassOverviewController {
 	@FXML
@@ -31,7 +35,7 @@ public class ClassOverviewController {
 	private ListView<String> studentsList;
 	
 	// Reference to the main application.
-	private MainApp mainApp; // TODO: DI does not work here.
+	private MainApp mainApp;
 	
 	public ClassOverviewController() {
 		
@@ -155,5 +159,33 @@ public class ClassOverviewController {
 		classTable.layout();
 		classTable.setItems(mainApp.getClassData());
 		classTable.getSelectionModel().select(selectedIndex);
+	}
+	
+	@FXML
+	private void handleExportPdf() {
+		SchoolClass selectedSchoolClass = classTable.getSelectionModel().getSelectedItem();
+		if (canUserViewClassDetails(selectedSchoolClass)) {
+			FileChooser fileChooser = new FileChooser();
+			
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf");
+			fileChooser.getExtensionFilters().add(extFilter);
+			
+			File file = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+			
+			if (file != null) {
+				if (!file.getPath().endsWith(".pdf")) {
+					file = new File(file.getPath());
+				}
+				
+				try {
+					PDFUtil.ExportPdf(file, selectedSchoolClass);
+				} catch (Exception e) {
+					e.printStackTrace();
+					Dialogs.showErrorDialog(mainApp.getPrimaryStage(), "An error occurred while trying to export the PDF file.", "Export error", "Export error");
+				}
+			}
+		} else {
+			Dialogs.showErrorDialog(mainApp.getPrimaryStage(), "You don't have enough privileges to export this class.", "Access denied", "Access denied");
+		}
 	}
 }

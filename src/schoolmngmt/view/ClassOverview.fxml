@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="300.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="schoolmngmt.ClassOverviewController">
   <children>
-    <SplitPane dividerPositions="0.4331103678929766" focusTraversable="true" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <SplitPane dividerPositions="0.43358395989974935" focusTraversable="true" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="background">
           <children>
@@ -29,7 +29,7 @@
                 <Label fx:id="nameLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                 <Label styleClass="label-bright" text="Course" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                 <Label fx:id="courseLabel" styleClass="label-bright" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Label styleClass="label-bright" text="Teachers" GridPane.columnIndex="0" GridPane.rowIndex="2" />              
+                <Label styleClass="label-bright" text="Teachers" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                 <ListView fx:id="teachersList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                 <Label styleClass="label-bright" text="Students" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                 <ListView fx:id="studentsList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -45,13 +45,14 @@
                 <RowConstraints maxHeight="38.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <HBox id="HBox" alignment="CENTER" layoutX="123.0" layoutY="264.0" spacing="5.0">
+            <HBox id="HBox" alignment="CENTER" layoutX="235.0" layoutY="263.0" spacing="5.0">
               <children>
+                <Button mnemonicParsing="false" onAction="#handleNewClass" text="New..." />
                 <Button mnemonicParsing="false" onAction="#handleEditClass" text="Edit..." />
                 <Button mnemonicParsing="false" onAction="#handleDeleteClass" text="Delete" />
               </children>
             </HBox>
-            <Button layoutX="41.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleNewClass" text="New..." />
+            <Button onAction="#handleExportPdf" layoutX="10.0" layoutY="263.0" mnemonicParsing="false" text="Export PDF" />
           </children>
         </AnchorPane>
       </items>
