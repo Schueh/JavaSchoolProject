@@ -1,5 +1,7 @@
 package schoolmngmt;
 
+import schoolmngmt.login.ILoginManager;
+import schoolmngmt.login.LoginManager;
 import schoolmngmt.repository.IDataRepository;
 import schoolmngmt.repository.IUserPreferences;
 import schoolmngmt.repository.UserPreferences;
@@ -13,6 +15,7 @@ public class DependencyModule extends AbstractModule {
 	protected void configure() {
 		bind(IDataRepository.class).to(XmlDataRepository.class);
 		bind(IUserPreferences.class).to(UserPreferences.class);
+		bind(ILoginManager.class).to(LoginManager.class);
 		bind(MainApp.class);
 	}
 }
