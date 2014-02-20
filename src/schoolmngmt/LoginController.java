@@ -29,6 +29,9 @@ public class LoginController {
 		this.mainApp = mainApp;
 	}
 	
+	/**
+	 * Shows the school class overview if the login is successful.
+	 */
 	@FXML
 	private void handleLogin() {
 		Boolean loginSuccessful = loginManager.tryLogin(usernameField.getText(), passwordField.getText());

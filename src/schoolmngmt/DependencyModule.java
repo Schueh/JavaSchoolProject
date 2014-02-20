@@ -11,6 +11,9 @@ import com.google.inject.AbstractModule;
 
 public class DependencyModule extends AbstractModule {
 
+	/**
+	 * Defines the specific implementation for all dependencies.
+	 */
 	@Override
 	protected void configure() {
 		bind(IDataRepository.class).to(XmlDataRepository.class);

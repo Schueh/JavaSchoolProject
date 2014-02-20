@@ -8,6 +8,11 @@ import com.thoughtworks.xstream.XStream;
 import schoolmngmt.model.SchoolClass;
 import schoolmngmt.util.FileUtil;
 
+/**
+ * Wrapper for accessing the xml files which contain the school class data.
+ * @author ManuelSidler
+ *
+ */
 public class XmlDataRepository implements IDataRepository {
 
 	@SuppressWarnings("unchecked")

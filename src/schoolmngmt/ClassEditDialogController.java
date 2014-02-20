@@ -47,6 +47,9 @@ public class ClassEditDialogController {
 		return okClicked;
 	}
 	
+	/**
+	 * Saves the edited or new school class if the given input is valid.
+	 */
 	@FXML
 	private void handleOk() {
 		if (isInputValid()) {

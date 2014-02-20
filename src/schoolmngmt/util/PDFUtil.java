@@ -13,7 +13,14 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import schoolmngmt.model.SchoolClass;
 
 public class PDFUtil {
-	public static void ExportPdf(File file, SchoolClass schoolClass) throws IOException, COSVisitorException {
+	/**
+	 * Saves the data from the given school class to a pdf file.
+	 * @param file
+	 * @param schoolClass
+	 * @throws IOException
+	 * @throws COSVisitorException
+	 */
+	public static void exportPdf(File file, SchoolClass schoolClass) throws IOException, COSVisitorException {
 		
 		PDDocument document = new PDDocument();
 		PDPage page = new PDPage();

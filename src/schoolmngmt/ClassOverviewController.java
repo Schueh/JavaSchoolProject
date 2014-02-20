@@ -34,13 +34,16 @@ public class ClassOverviewController {
 	@FXML
 	private ListView<String> studentsList;
 	
-	// Reference to the main application.
 	private MainApp mainApp;
 	
 	public ClassOverviewController() {
 		
 	}
 	
+	/**
+	  * Initializes the controller class. This method is automatically called
+	  * after the fxml file has been loaded.
+	  */
 	@FXML
 	private void initialize() {
 		initializeClassTable();
@@ -63,6 +66,11 @@ public class ClassOverviewController {
 	       });
 	}
 	
+	/**
+	  * Is called by the main application to give a reference back to itself.
+	  * 
+	  * @param mainApp
+	  */
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		
@@ -70,6 +78,14 @@ public class ClassOverviewController {
 		classTable.setItems(mainApp.getClassData());
 	}
 	
+	/**
+	 * Fills all text fields to show details about the school class.
+	 * If the specified school class is null, all text fields are cleared.
+	 * If the current user is a student or teacher and not in this school class
+	 * an access denied error will be shown.
+	 * 
+	 * @param schoolClass the school class or null
+	 */
 	private void showClassDetails(SchoolClass schoolClass) {
 		if (canUserViewClassDetails(schoolClass)) {
 			if (schoolClass == null) {
@@ -88,6 +104,11 @@ public class ClassOverviewController {
 		}
 	}
 	
+	/**
+	 * Checks whether the current user has access to view the details of the selected school class.
+	 * @param schoolClass
+	 * @return true if the current user has access to the class details.
+	 */
 	private Boolean canUserViewClassDetails(SchoolClass schoolClass) {
 		Boolean canViewClassDetails = false;
 		
@@ -161,6 +182,11 @@ public class ClassOverviewController {
 		classTable.getSelectionModel().select(selectedIndex);
 	}
 	
+	/**
+	 * Starts a pdf export if the current user has access to the selected school class.
+	 * The export contains all necessary information (Name, course, teachers and students)
+	 * about the selected school class.
+	 */
 	@FXML
 	private void handleExportPdf() {
 		SchoolClass selectedSchoolClass = classTable.getSelectionModel().getSelectedItem();
@@ -178,7 +204,7 @@ public class ClassOverviewController {
 				}
 				
 				try {
-					PDFUtil.ExportPdf(file, selectedSchoolClass);
+					PDFUtil.exportPdf(file, selectedSchoolClass);
 				} catch (Exception e) {
 					e.printStackTrace();
 					Dialogs.showErrorDialog(mainApp.getPrimaryStage(), "An error occurred while trying to export the PDF file.", "Export error", "Export error");

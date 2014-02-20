@@ -2,6 +2,11 @@ package schoolmngmt.repository;
 
 import java.util.prefs.Preferences;
 
+/**
+ * Wrapper for accessing the user preferences.
+ * @author ManuelSidler
+ *
+ */
 public class UserPreferences implements IUserPreferences {
 
 	@Override

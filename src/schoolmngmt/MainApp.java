@@ -31,6 +31,7 @@ public class MainApp extends Application {
 	private final IDataRepository dataRepository;
 	private final IUserPreferences userPreferences;
 	
+	// we use the Google guice injector to get a specific implementation of a dependency.
 	private final Injector injector = Guice.createInjector(new DependencyModule());
 	
 	private Stage primaryStage;
@@ -56,18 +57,12 @@ public class MainApp extends Application {
 
 		dataRepository = injector.getInstance(IDataRepository.class);
 		userPreferences = injector.getInstance(IUserPreferences.class);
-		
-		SchoolClass testClass1 = new SchoolClass("PABIT", "Bsc BIT");
-		testClass1.getTeachers().add("Michael Stoll");
-		testClass1.getStudents().add("Lisa Simpson");
-		classData.add(testClass1);
-		
-		SchoolClass testClass2 = new SchoolClass("BIT", "Bsc BIT");
-		testClass2.getTeachers().add("Max Mustermann");
-		testClass2.getStudents().add("Kevin Buhlmann");
-		classData.add(testClass2);
 	}
 	
+	/**
+	 * Sets the title and the icon. It also loads the root view, loads the data and shows 
+	 * the login screen.
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
