@@ -82,7 +82,10 @@ public class MainApp extends Application {
 			rootLayout = (BorderPane) loader.load();
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);		
-			primaryStage.show();			
+			primaryStage.show();
+			
+			RootLayoutController rootLayoutController = loader.getController();
+			rootLayoutController.setMainApp(this);
 		} catch (IOException e) {
 			// Root layout couldn't be loaded.
 			e.printStackTrace();

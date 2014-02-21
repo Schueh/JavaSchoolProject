@@ -2,8 +2,6 @@ package schoolmngmt;
 
 import java.io.File;
 
-import com.google.inject.Inject;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Dialogs;
 import javafx.stage.FileChooser;
@@ -11,9 +9,9 @@ import schoolmngmt.MainApp;
 
 public class RootLayoutController {
 	
-	private final MainApp mainApp;
+	private MainApp mainApp;
 	
-	@Inject public RootLayoutController(MainApp mainApp) {
+	public void setMainApp(MainApp mainApp){
 		this.mainApp = mainApp;
 	}
 	
